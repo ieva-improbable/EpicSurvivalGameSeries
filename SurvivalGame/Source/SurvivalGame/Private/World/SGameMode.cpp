@@ -414,23 +414,23 @@ void ASGameMode::InitGame(const FString& MapName, const FString& Options, FStrin
 		BaseMutator->InitGame(MapName, Options, ErrorMessage);
 	}
 
-	for (TActorIterator<AActor> It(GetWorld(), AActor::StaticClass()); It; ++It)
-	{
-		AActor* Actor = *It;
-		if (!Actor->IsPendingKill())
-		{
-			if (!Actor->IsA(ALevelScriptActor::StaticClass()) && !Actor->IsA(ASMutator::StaticClass()) && Actor->GetRootComponent() != nullptr &&
-				Actor->GetRootComponent()->Mobility != EComponentMobility::Static || (!Actor->IsA(AStaticMeshActor::StaticClass()) && !Actor->IsA(ALight::StaticClass())))
-			{
-				// a few type checks being AFTER the CheckRelevance() call is intentional; want mutators to be able to modify, but not outright destroy
-				if (!CheckRelevance(Actor) && !Actor->IsA(APlayerController::StaticClass()))
-				{
-					/* Actors are destroyed if they fail the relevance checks */
-					Actor->Destroy();
-				}
-			}
-		}
-	}
+	//for (TActorIterator<AActor> It(GetWorld(), AActor::StaticClass()); It; ++It)
+	//{
+	//	AActor* Actor = *It;
+	//	if (!Actor->IsPendingKill())
+	//	{
+	//		if ((!Actor->IsA(ALevelScriptActor::StaticClass()) && !Actor->IsA(ASMutator::StaticClass()) && Actor->GetRootComponent() != nullptr &&
+	//			Actor->GetRootComponent()->Mobility != EComponentMobility::Static) || (!Actor->IsA(AStaticMeshActor::StaticClass()) && !Actor->IsA(ALight::StaticClass())))
+	//		{
+	//			// a few type checks being AFTER the CheckRelevance() call is intentional; want mutators to be able to modify, but not outright destroy
+	//			if (!CheckRelevance(Actor) && !Actor->IsA(APlayerController::StaticClass()))
+	//			{
+	//				/* Actors are destroyed if they fail the relevance checks */
+	//				Actor->Destroy();
+	//			}
+	//		}
+	//	}
+	//}
 
 	Super::InitGame(MapName, Options, ErrorMessage);
 }
